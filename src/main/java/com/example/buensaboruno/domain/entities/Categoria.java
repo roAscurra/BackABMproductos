@@ -19,7 +19,7 @@ import java.util.Set;
 //@Audited
 public class Categoria extends Base{
     private String denominacion;
-
+    private Boolean esInsumo;
 
 
     @ManyToMany(mappedBy = "categorias")
