@@ -1,5 +1,6 @@
 package com.example.buensaboruno.domain.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import jakarta.transaction.Transactional;
 import lombok.*;
@@ -30,7 +31,8 @@ public class Sucursal extends  Base{
     @OneToOne
     private Domicilio domicilio;
 
-    @ManyToMany(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
+    @ManyToMany
+    @JsonIgnoreProperties("promociones")
     @ToString.Exclude
     @JoinTable(name = "sucursal_promocion",
             joinColumns = @JoinColumn(name = "promocion_id"),
@@ -39,7 +41,8 @@ public class Sucursal extends  Base{
     @Builder.Default
     private Set<Promocion> promociones = new HashSet<>();
 
-    @ManyToMany(cascade = CascadeType.REFRESH, fetch = FetchType.LAZY)
+    @ManyToMany
+    @JsonIgnoreProperties("sucursales")
     @ToString.Exclude
     //SE AGREGA EL JOIN TABLE PARA QUE JPA CREE LA TABLA INTERMEDIA
     // EN UNA RELACION MANY TO MANY
@@ -47,13 +50,12 @@ public class Sucursal extends  Base{
             joinColumns = @JoinColumn(name = "sucursal_id"),
             inverseJoinColumns = @JoinColumn(name = "categoria_id"))
     //SE AGREGA EL BUILDER.DEFAULT PARA QUE BUILDER NO SOBREESCRIBA LA INICIALIZACION DE LA LISTA
- @Builder.Default
+    @Builder.Default
     private Set<Categoria> categorias = new HashSet<>();
 
 
-
-
-    @OneToMany(mappedBy = "sucursal",cascade = CascadeType.REFRESH,fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "sucursal",cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+    @JsonIgnoreProperties("sucursal")
     @Builder.Default
     private Set<Empleado> empleados = new HashSet<>();
 

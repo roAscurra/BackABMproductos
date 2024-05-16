@@ -1,5 +1,6 @@
 package com.example.buensaboruno.domain.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
@@ -29,6 +30,7 @@ public abstract class Articulo  extends Base {
     //DE ESTA MANERA PONE EL FOREIGN KEY 'cliente_id' EN LA TABLA DE LOS MANY
     @JoinColumn(name = "articulo_id")
     //SE AGREGA EL BUILDER.DEFAULT PARA QUE BUILDER NO SOBREESCRIBA LA INICIALIZACION DE LA LISTA
+    @JsonIgnoreProperties("articulo")
     @Builder.Default
     @NotAudited
     protected Set<ImagenArticulo> imagenes = new HashSet<>();

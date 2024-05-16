@@ -3,6 +3,7 @@ package com.example.buensaboruno.domain.entities;
 import com.example.buensaboruno.domain.enums.Estado;
 import com.example.buensaboruno.domain.enums.FormaPago;
 import com.example.buensaboruno.domain.enums.TipoEnvio;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
@@ -41,10 +42,12 @@ public class Pedido extends Base{
     private Factura factura;
 
     @ManyToOne
+    @JsonIgnoreProperties("pedido")
     @JoinColumn(name = "cliente_id")
     private Cliente cliente;
 
     @OneToMany(cascade = CascadeType.ALL)
+    @JsonIgnoreProperties("pedido")
     //SE AGREGA EL JOIN COLUMN PARA QUE JPA NO CREE LA TABLA INTERMEDIA EN UNA RELACION ONE TO MANY
     //DE ESTA MANERA PONE EL FOREIGN KEY 'pedido_id' EN LA TABLA DE LOS MANY
     @JoinColumn(name = "pedido_id")
@@ -53,6 +56,7 @@ public class Pedido extends Base{
     private Set<DetallePedido> detallePedidos = new HashSet<>();
 
     @ManyToOne
+    @JsonIgnoreProperties("pedido")
     @JoinColumn(name = "empleado_id")
     private Empleado empleado;
 }

@@ -1,5 +1,6 @@
 package com.example.buensaboruno.domain.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.Entity;
 import jakarta.persistence.ManyToOne;
 import lombok.*;
@@ -18,5 +19,6 @@ public class ArticuloManufacturadoDetalle extends Base{
     private Integer cantidad;
 
     @ManyToOne
+    @JsonIgnoreProperties("articuloManufacturadoDetalles")
     private ArticuloInsumo articuloInsumo;
 }

@@ -1,5 +1,6 @@
 package com.example.buensaboruno.domain.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
@@ -25,6 +26,7 @@ public class ArticuloManufacturado  extends Articulo{
 
 
     @OneToMany
+    @JsonIgnoreProperties("articuloManufacturado")
     @JoinColumn(name = "articuloManufacturado_id")
     @Builder.Default
     private Set<ArticuloManufacturadoDetalle> articuloManufacturadoDetalles = new HashSet<>();

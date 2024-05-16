@@ -1,6 +1,7 @@
 package com.example.buensaboruno.domain.entities;
 
 import com.example.buensaboruno.domain.enums.TipoPromocion;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.envers.NotAudited;
@@ -48,6 +49,7 @@ public class Promocion  extends Base{
 
 
     @ManyToMany (mappedBy = "promociones")
+    @JsonIgnoreProperties("promociones")
     private Set<Sucursal> sucursales = new HashSet<>();
 
 

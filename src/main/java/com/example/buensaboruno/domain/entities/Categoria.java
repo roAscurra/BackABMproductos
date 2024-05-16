@@ -1,5 +1,7 @@
 package com.example.buensaboruno.domain.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
@@ -23,11 +25,13 @@ public class Categoria extends Base{
 
 
     @ManyToMany(mappedBy = "categorias")
+    @JsonIgnore
     //SE AGREGA EL BUILDER.DEFAULT PARA QUE BUILDER NO SOBREESCRIBA LA INICIALIZACION DE LA LISTA
     @Builder.Default
     private Set<Sucursal> sucursales = new HashSet<>();
 
     @OneToMany
+    @JsonIgnoreProperties("subCategorias")
     //SE AGREGA EL JOIN COLUMN PARA QUE JPA NO CREE LA TABLA INTERMEDIA EN UNA RELACION ONE TO MANY
     //DE ESTA MANERA PONE EL FOREIGN KEY 'categoria_id' EN LA TABLA DE LOS MANY
     @JoinColumn(name = "categoria_id")
@@ -37,6 +41,7 @@ public class Categoria extends Base{
 
 
     @OneToMany
+    @JsonIgnoreProperties("subCategorias")
     //SE AGREGA EL JOIN COLUMN PARA QUE JPA NO CREE LA TABLA INTERMEDIA EN UNA RELACION ONE TO MANY
     //DE ESTA MANERA PONE EL FOREIGN KEY 'categoria_id' EN LA TABLA DE LOS MANY
     @JoinColumn(name = "categoria_id")

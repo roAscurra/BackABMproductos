@@ -1,6 +1,7 @@
 package com.example.buensaboruno.domain.entities;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
@@ -26,6 +27,7 @@ public class Domicilio extends Base{
     private Integer nroDpto;
 
     @ManyToOne
+    @JsonIgnoreProperties("domicilio")
     @NotAudited
     private Localidad localidad;
 

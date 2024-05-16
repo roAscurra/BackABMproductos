@@ -1,6 +1,7 @@
     package com.example.buensaboruno.domain.entities;
 
     import com.example.buensaboruno.domain.enums.Rol;
+    import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
     import jakarta.persistence.*;
     import lombok.*;
     import org.hibernate.envers.Audited;
@@ -37,7 +38,8 @@
         private ImagenEmpleado imagenEmpleado;
 
 
-        @OneToMany(mappedBy = "empleado", cascade = CascadeType.REFRESH, orphanRemoval = true)
+        @OneToMany(mappedBy = "empleado", cascade = CascadeType.ALL, orphanRemoval = true)
+        @JsonIgnoreProperties("empleado")
         @ToString.Exclude
         @Builder.Default
         private Set<Pedido> pedidos= new HashSet<>();
